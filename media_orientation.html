@@ -1,0 +1,54 @@
+<!-- 
+	Testing CSS3 media queries and orientation
+	Author: Alain Ibrahim 
+	Class: CS65 
+-->
+<!DOCTYPE html>
+	<head>
+		<meta name="viewport" content="width=device-width,intial-scale=1">
+		<title>Testing CSS3 media queries and orientation</title>
+		<style>
+			html,body {
+				width:100%;
+				height:100%;
+			}
+			
+			div {
+				width:100%;
+				height:100%;
+				background-color:blue;
+				font-size:6em;
+				text-align:center;
+			}
+			
+			@media screen and (orientation:landscape) {
+				div {
+					background-color:yellow;				
+				}
+
+			}
+			
+			@media screen and (orientation:portrait) {
+				div {
+					background-color:blue;				
+				}
+			}
+			
+			@media screen and (device-width: 320px) {
+				div {
+					color:white;
+				}
+			}
+						
+		</style>
+	</head>
+	<body>
+		<div>Here is some text</div>
+	<script>
+		// listener to the screen orientation (2d)
+		window.addEventListener("orientationchange",function() {
+			alert("The value of this orientation is " + window.orientation);
+		});
+	</script>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!-- 
+	Testing CSS3 features 
+	Author: Alain Ibrahim 
+	Class: CS65 
+-->
+<!DOCTYPE html>
+	<head>
+		<title>Testing CSS3 features</title>
+		<style>
+			div {
+				width:100px;
+				height:100px;
+				background-color:blue;
+				margin-bottom:10px;
+			}
+			
+			div:nth-child(1) {
+				border:2px solid;
+				border-radius:25px;
+			}
+			
+			div:nth-child(2) {
+				box-shadow:5px 5px 3px Gray;
+			}
+			
+			div:nth-child(3) {
+				border-image:url(http://www.w3schools.com/css3/border.png) 30 10 20 round;
+			}
+
+			div:nth-child(4) {													background:url(http://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg);
+				background-size:100% 100%;
+				background-repeat:no-repeat;
+			}
+
+			div:nth-child(5) {
+				font-family:calibri;
+				font-size:22px;
+				color:black;
+				text-shadow:5px 5px 5px white;
+			}
+			
+			div:nth-child(6) {
+				background: linear-gradient(
+					red 11%,
+					orange 30%,
+					yellow 40%,
+					green 55%,
+					blue 85%,
+					black 100%
+				)
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div>Some text</div>
+		<div></div>
+	</body>
+</html>

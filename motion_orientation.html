@@ -1,0 +1,54 @@
+<!-- 
+	Testing device motion and device orientation with Javascript
+	Author: Alain Ibrahim 
+	Class: CS65 
+-->
+<!DOCTYPE html>
+	<head>
+		<meta name="viewport" content="width=device-width,intial-scale=1,maximum-scale=1,user-scalable=no">
+		<title>Testing device motion and device orientation with Javascript</title>
+		<script>
+			window.addEventListener("devicemotion", motionHandler, false);
+			window.addEventListener("deviceorientation",orientationHandler, false);
+			
+			function motionHandler(event) {
+			
+				x_motion_element = document.getElementById("x_motion");
+				y_motion_element = document.getElementById("y_motion");
+				z_motion_element = document.getElementById("z_motion");
+				
+				x_acc = parseInt(event.acceleration.x);
+				y_acc = parseInt(event.acceleration.y);
+				z_acc = parseInt(event.acceleration.z);
+			
+				x_motion_element.innerHTML = x_acc;
+				y_motion_element.innerHTML = y_acc;
+				z_motion_element.innerHTML = z_acc;
+			}
+			
+			function orientationHandler(event) {
+				x_orientation_element = document.getElementById("x_orientation");
+				y_orientation_element = document.getElementById("y_orientation");
+				z_orientation_element = document.getElementById("z_orientation");
+				
+				x_orient = parseInt(event.beta);
+				y_orient = parseInt(event.gamma);
+				z_orient = parseInt(event.alpha);
+			
+				x_orientation_element.innerHTML = x_orient;
+				y_orientation_element.innerHTML = y_orient;
+				z_orientation_element.innerHTML = z_orient;
+			}
+
+		</script>
+	</head>
+	<body>
+		<div>Acceleration on X axis: <span id="x_motion"></span></div>
+		<div>Acceleration on Y axis: <span id="y_motion"></span></div>
+		<div>Acceleration on Z axis: <span id="z_motion"></span></div>
+		<br /><br />
+		<div>Device orientation on X axis (forward/backward): <span id="x_orientation"></span></div>
+		<div>Device orientation on Y axis (left/right): <span id="y_orientation"></span></div>
+		<div>Device orientation on Z axis (around): <span id="z_orientation"></span></div>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+<!-- 
+	Testing animation with Javascript & CSS3 
+	Author: Alain Ibrahim 
+	Class: CS65 
+-->
+<!DOCTYPE html>
+	<head>
+		<title>Testing animation with Javascript and CSS3</title>
+		<script>
+			var timeout_handle = null;
+			var interval_handle = null;
+			var withTimeout = true;
+			var withInterval = true;
+			
+			// Method 1: setTimeout()
+			function animateWithTimeout() {
+				timeout_handle = window.setTimeout(moveRight, 20);
+			}
+			
+			// Method 2: setInterval()
+			function animateWithInterval() {
+				interval_handle = setInterval(moveRight, 20);
+			}
+			
+			// What changes on each step of the animation
+			function moveRight() {
+				box = document.getElementById("box");
+				box_left = parseInt(window.getComputedStyle(box).getPropertyValue("left").replace("px",""));
+				box.style.left = (box_left+1) + "px";	
+				if(withTimeout && box_left < 1000) { 
+					animateWithTimeout();
+				}
+				if(withInterval && box_left > 1000) { 
+					window.clearInterval(interval_handle);
+				}
+			}
+			
+			// UNCOMMENT ONE AT A TIME TO SEE IN ACTION
+			//animateWithTimeout();
+			//animateWithInterval();
+		
+		</script>
+		<style>
+			/**
+				Method 3: Animating with CSS3
+			*/
+			
+			@keyframes boxAnimation {
+				from {left:0px;}
+				to {left:1000px;}
+			}
+			
+			@-webkit-keyframes boxAnimation {
+				from {left:0px;}
+				to {left:1000px;}
+			}
+			
+			#box {
+				width:80px;
+				height:80px;
+				background-color:blue;
+				position:absolute;
+				left:0px;
+				/** UNCOMMENT THIS FOR CSS ANIMATION
+				animation: boxAnimation 10s;
+				-webkit-animation: boxAnimation 10s;
+				*/
+			}		
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+</html>
