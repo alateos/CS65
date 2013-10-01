@@ -1,0 +1,63 @@
+<!-- 
+	Testing WebSocket 
+	Author: Alain Ibrahim 
+	Class: CS65 
+-->
+<!DOCTYPE html>
+	<head>
+		<title>Testing WebSocket</title>
+		<style>
+			span {font-weight:bold;color:blue;padding:0px 5px 0px 5px;}
+			.button {float:left;margin:20px 5px 5px 5px; width:150px;height:30px;color:white;background-color:blue;text-align:center;cursor:pointer;padding:5px;}
+			strong {color:red;}
+		</style>
+		<script>
+			function connect() {
+				host = "ws://echo.websocket.org";
+				socket = new WebSocket(host);
+				
+				socket.onmessage = function (event) {
+					socket_status.innerHTML = "Message sent to server";
+					setTimeout(function() {socket_status.innerHTML = "Message returned from server: " + "<strong>" + event.data + "</strong>";},1000);
+				}
+				
+				socket.onopen = function (event) {
+					socket_status.innerHTML = "Opened connection with server";
+				};
+				 
+				socket.onclose = function(event) {
+					socket_status.innerHTML = "<strong>The connection with the server has been terminated</strong>";
+					socket = null;
+				};
+				
+				socket.onerror = function(event) {
+					socket_status.innerHTML = "Error in connection";
+			};
+			}
+			
+			function disconnect() {
+				socket.close();
+			}
+			
+			function sendMessage() {
+				message = prompt("Enter message to send to server");
+				try {
+					if (message) {
+						socket.send(message);
+					}
+				} catch(e) {
+					socket_status.innerHTML = "<strong>" + e + "</strong>";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			STATUS [<span id="socket_status"></span>]<br />
+			<div class="button" onclick="connect()">CONNECT</div>
+			<div class="button" onclick="disconnect()">DISCONNECT</div>
+			<div class="button" onclick="sendMessage()">SEND MSG</div>
+		</div>
+
+	</body>
+</html>

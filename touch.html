@@ -1,0 +1,92 @@
+<!-- 
+	Testing touch events
+	Author: Alain Ibrahim 
+	Class: CS65 
+-->
+<!DOCTYPE html>
+	<head>
+		<title>Testing touch events</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+		<style>
+			span {color:blue;font-weight:bold;}
+			#square {width:100px;height:100px;background-color:blue;}
+		</style>
+	</head>
+	<body>
+		Action: <span id="action"></span><br />
+		Type: <span id="type"></span><br />
+		Force: <span id="force"></span><br /><br />
+		
+		PageX: <span id="page_x"></span><br />
+		PageY: <span id="page_y"></span><br />
+		ClientX: <span id="client_x"></span><br />
+		ClientY: <span id="client_y"></span><br />
+		ScreenX: <span id="screen_x"></span><br />
+		ScreenY: <span id="screen_y"></span><br /><br />
+		
+		<div id="square"></div>
+		<script>
+			function initTouch() {
+				var body = document.getElementsByTagName("body")[0];
+				body.addEventListener("touchstart",handleStart,false);
+				body.addEventListener("touchend",handleEnd,false);
+				body.addEventListener("touchcancel",handleCancel,false);
+				body.addEventListener("touchmove",handleMove,false);
+
+				square.addEventListener("touchenter",handleEnter,false);
+				square.addEventListener("touchleave",handleLeave,false);
+				
+			}
+			
+			function updateStats(event) {
+				client_x.innerHTML = event.touches[0].clientX;
+				client_y.innerHTML = event.touches[0].clientY;
+				page_x.innerHTML = event.touches[0].pageX;
+				page_y.innerHTML = event.touches[0].pageY;
+				screen_x.innerHTML = event.touches[0].screenX;
+				screen_y.innerHTML = event.touches[0].screenY;
+				force.innerHTML = event.force;
+				type.innerHTML = event.type;
+			}
+			
+			function handleStart(event) {
+				event.preventDefault();
+				action.innerHTML = "Touch started";
+				updateStats(event);
+			}
+			
+			function handleEnd(event) {
+				event.preventDefault();
+				action.innerHTML = "Touch ended";
+				updateStats(event);
+			}
+			
+			function handleCancel(event) {
+				event.preventDefault();
+				action.innerHTML = "Something extraneous caused touch to cancel";
+				updateStats(event);
+			}
+			
+			function handleEnter(event) {
+				event.preventDefault();
+				action.innerHTML = "Square is being touched";
+				updateStats(event);
+			}
+			
+			function handleLeave(event) {
+				event.preventDefault();
+				action.innerHTML = "Square is abandoned";
+				updateStats(event);
+			}
+			
+			function handleMove(event) {
+				event.preventDefault();
+				action.innerHTML = "Your finger moved";
+				updateStats(event);
+			}
+			
+			initTouch();
+			//setTimeout(function() { alert("blah"); }, 5000);
+		</script>
+	</body>
+</html>

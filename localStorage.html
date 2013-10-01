@@ -1,0 +1,66 @@
+<!-- 
+	Testing localStorage
+	Author: Alain Ibrahim 
+	Class: CS65 
+-->
+<!DOCTYPE html>
+	<head>
+		<title>Testing localStorage</title>
+		<style>
+			span {color:blue;font-weight:bold;}
+			.button {background-color:blue;color:white;width:150px;height:25px;padding:3px;margin:5px;float:left;cursor:pointer;text-align:center;}
+		</style>
+	</head>
+	<body>
+	localStorage support: <span id="local_storage"></span><br />
+	Other tabs changing localStorage? <span id="storage_change"></span><br /><br />
+	<div onclick="clearStorage()" class="button">CLEAR STORAGE</div>
+	<div onclick="addItem()" class="button">ADD ITEM</div>
+	<div onclick="removeItem()" class="button">REMOVE ITEM</div><br /><br /><br /><br />
+	Local storage content <div id="local_storage_content"></div>
+		
+		<script>
+			if(window.localStorage) {
+				local_storage.innerHTML = "Supported. Returned " + localStorage;
+				updateStorageContent();
+			} else {
+				local_storage.innerHTML = "Not supported";
+			}
+			
+			window.addEventListener("storage",function() { 
+				storage_change.innerHTML = "Yes";
+			},false);
+			
+			function updateStorageContent() {
+				if(localStorage.length == 0) {
+					local_storage_content.innerHTML = "<span>Empty</span>";
+					return;
+				}
+				
+				local_storage_content.innerHTML = "";
+				for(i=0;i<localStorage.length;i++) {
+					key = localStorage.key(i);
+					local_storage_content.innerHTML += "Key: <span>" + key + "</span><br />Value: <span>" + localStorage.getItem(key) + "</span><br /><br />";
+				}
+			}
+			
+			function clearStorage() {
+				localStorage.clear();
+				updateStorageContent();
+			}
+			
+			function addItem() {
+				key = prompt("Enter key");
+				value = prompt("Enter value");
+				localStorage.setItem(key,value);
+				updateStorageContent();
+			}
+			
+			function removeItem() {
+				key = prompt("Enter key");
+				localStorage.removeItem(key);
+				updateStorageContent();
+			}
+		</script>
+	</body>
+</html>

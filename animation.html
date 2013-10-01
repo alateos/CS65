@@ -11,6 +11,12 @@
 			var interval_handle = null;
 			var withTimeout = true;
 			var withInterval = true;
+			var withRequestFrame = true;
+			var initial_timestamp = new Date().getTime();
+			
+			// Assign the requestAnimationFrame global variable to the engine
+			// of the browser that is loading this page
+			window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame 				|| window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 			
 			// Method 1: setTimeout()
 			function animateWithTimeout() {
@@ -22,10 +28,15 @@
 				interval_handle = setInterval(moveRight, 20);
 			}
 			
+			// Method 3: requestAnimationFrame
+			function animateWithRequestFrame() {
+				requestAnimationFrame(moveRight);
+			}
+			
 			// What changes on each step of the animation
 			function moveRight() {
 				box = document.getElementById("box");
-				box_left = parseInt(window.getComputedStyle(box).getPropertyValue("left").replace("px",""));
+				box_left = parseInt(window.getComputedStyle(box).getPropertyValue("left"));
 				box.style.left = (box_left+1) + "px";	
 				if(withTimeout && box_left < 1000) { 
 					animateWithTimeout();
@@ -33,11 +44,23 @@
 				if(withInterval && box_left > 1000) { 
 					window.clearInterval(interval_handle);
 				}
+				if(withRequestFrame) {
+					if(box_left < 1000) {
+						current_timestamp = new Date().getTime();
+						if((current_timestamp - initial_timestamp) >= 500) {
+							initial_timestamp = new Date().getTime();
+							requestAnimationFrame(moveRight);
+						}
+					} else {
+						window.cancelAnimationFrame(moveRight);
+					}
+				}
 			}
 			
 			// UNCOMMENT ONE AT A TIME TO SEE IN ACTION
 			//animateWithTimeout();
 			//animateWithInterval();
+			animateWithRequestFrame();
 		
 		</script>
 		<style>
